@@ -1,0 +1,201 @@
+<head></head>
+<body>
+<form>
+
+    <input type="radio" name="array1" value="array1" checked> Array 1<br>
+    <input type="radio" name="array1" value="array2"> Array 2<br>
+    <input type="radio" name="array1" value="array3"> Array 3<br>
+    <input type="radio" name="array2" value="array4" checked> Array 4<br>
+    <input type="radio" name="array2" value="array5"> Array 5<br>
+    <input type="radio" name="array2" value="array6"> Array 6<br>
+    <input type="submit" value="Submit">
+  </form>
+  <ul id="list"></ul>
+</body>
+  <script>
+     const tvshows = ['Element 1', 'Element 2', 'Element 3'];
+const array2 = ['Element 4', 'Element 5', 'Element 6'];
+const array3 = ['Element 7', 'Element 8', 'Element 9'];
+const array4 = ['Element 10', 'Element 11', 'Element 12'];
+const array5 = ['Element 13', 'Element 14', 'Element 15'];
+const array6 = ['Element 16', 'Element 17', 'Element 18'];
+const descriptions1 = ['Description 1', 'Description 2', 'Description 3'];
+const descriptions2 = ['Description 4', 'Description 5', 'Description 6'];
+const descriptions3 = ['Description 7', 'Description 8', 'Description 9'];
+const descriptions4 = ['Description 10', 'Description 11', 'Description 12'];
+const descriptions5 = ['Description 13', 'Description 14', 'Description 15'];
+const descriptions6 = ['Description 16', 'Description 17', 'Description 18'];
+const list = document.querySelector('#list');
+const form = document.querySelector('form');
+
+form.onsubmit = function(event) {
+  event.preventDefault();
+  list.innerHTML = ''; // Clear the list
+  let selectedArray1;
+  let selectedArray2;
+  let selectedDescriptions1;
+  let selectedDescriptions2;
+  let radios1 = form.elements['array1'];
+  let radios2 = form.elements['array2'];
+  for (let i = 0; i < radios1.length; i++) {
+    if (radios1[i].checked) {
+      switch (radios1[i].value) {
+        case 'array1':
+          selectedArray1 = array1;
+          selectedDescriptions1 = descriptions1;
+          break;
+        case 'array2':
+          selectedArray1 = array2;
+          selectedDescriptions1 = descriptions2;
+          break;
+        case 'array3':
+          selectedArray1 = array3;
+          selectedDescriptions1 = descriptions3;
+          break;
+      }
+    }
+  }
+  for (let i = 0; i < radios2.length; i++) {
+    if (radios2[i].checked) {
+      switch (radios1[i].value) {
+        case 'array1':
+          selectedArray2 = array3;
+          selectedDescriptions2 = descriptions4;
+          break;
+        case 'array2':
+          selectedArray2 = array4;
+          selectedDescriptions2 = descriptions5;
+          break;
+        case 'array3':
+          selectedArray2 = array5;
+          selectedDescriptions2 = descriptions6;
+          break;
+      }
+    }
+  }
+  for (let i = 0; i < selectedArray1.length; i++) {
+    let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + selectedArray1[i] + '</a>';
+    listItem.title = selectedDescriptions1[i];
+    listItem.onmouseover = function() {
+      alert(this.title);
+    }
+    listItem.onmouseout = function() {
+      alert('');
+    }
+    numList.appendChild(listItem);
+  }
+  for (let i = 0; i < selectedArray2.length; i++) {
+    let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + selectedArray2[i] + '</a>';
+    listItem.title = selectedDescriptions2[i];
+    listItem.onmouseover = function() {
+      alert(this.title);
+    }
+    listItem.onmouseout = function() {
+      alert('');
+    }
+    list.appendChild(listItem);
+  }
+}
+
+
+  </script>
+
+else if(radHappy.checked && radExciting.checked){
+    // Turn the list into seperate links //
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowHappyandExciting.length; i++){
+        listHTML += "<a href=''><li>" +  tvShowHappyandExciting[i];
+    };
+    listHTML += '</ol></a>';
+        results.innerHTML = listHTML;
+}
+
+else if (radHappy.checked && radGruesome.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowHappyandGruesome.length; i++){
+        listHTML += "<a href=''><li>" +  tvShowHappyandGruesome[i];
+    };
+    listHTML += '<ol></a>';
+        results.innerHTML = listHTML;
+}
+else if (radHappy.checked && radHeartwarming.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowHappyandHeartwarming.length; i++){
+        listHTML += '<li>' +  tvShowHappyandHeartwarming[i];
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radHappy.clicked && radComedic.clicked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowHappyandComedic.length; i++){
+        listHTML += '<a href=""> <li>' +  tvShowHappyandComedic[i];
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+
+else if(radSad.checked && radGruesome.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowSadandGruesome.length; i++){
+        listHTML += '<li>' +  tvShowSadandGruesome[i];
+        
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radSad.checked && radHeartwarming.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowSadandHeartwarming.length; i++){
+        listHTML += '<li>' +  tvShowSadandHeartwarming[i];
+        
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radSad.checked && radComedic.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowSadandComedic.length; i++){
+        listHTML += '<li>' +  tvShowSadandComedic[i];
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radLoving.checked && radExciting.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowLovingandExciting.length; i++){
+        listHTML += "<a href= "+ " ><li>" +  tvShowLovingandExciting[i];
+        
+    listHTML += '<ol><a/>';
+        results.innerHTML = listHTML;
+    }
+}
+else if(radLoving.checked && radGruesome.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowLovingandGruesome.length; i++){
+        listHTML += '<li>' +  tvShowLovingandGruesome[i];
+        
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radLoving.checked && radHeartwarming.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowLovingandHeartwarming.length; i++){
+        listHTML += '<li>' +  tvShowLovingandHeartwarming[i];
+        
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+else if(radLoving.checked && radComedic.checked){
+    let listHTML ="<ol>";
+    for(i = 0; i < tvShowsLovingandComedic.length; i++){
+        listHTML += '<li>' +  tvShowsLovingandComedic[i];
+    };
+    listHTML += '<ol>';
+        results.innerHTML = listHTML;
+}
+})

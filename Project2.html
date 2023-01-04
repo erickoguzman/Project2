@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<style>
+    h1{
+        font-size: 50px;
+        text-align: center;
+        
+    }
+    body{
+        font-size: 1em;
+        background-color: beige;
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    }
+    #results{
+       margin-top:10px;
+        text-align: center;
+    display: flex;
+    width: 250px;
+    height: auto;
+    font-size:large;
+    font-weight:bold;
+    text-align: left;
+    }
+.moods{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1.5em;
+    margin:10px;
+    justify-content: space-around;
+font-weight: bold;
+color:rgb(147, 37, 37);
+
+}
+    #mood-feelings{
+        
+        display: flex;
+        float: left;
+        clear: none;
+        align-items:baseline
+        
+        
+    }
+    input[type="radio"], input.radio{
+        
+        margin: 5px 0 0 20px;
+        float:left;
+        width:20px;
+        transform: scale(1);
+    }
+    label{
+        
+        display: block;
+        padding: 0 1em 0 0;
+        clear:none;
+        
+    }
+    #submitBtn{
+        width: auto;
+        height:auto;
+        font-size:1em;
+        border-radius: 10%;
+    }
+    #submitBtn:hover{
+        background-color: rgb(147, 37, 37);
+        box-shadow: 1px 4px 5px 1px black;
+    }
+    #results-box{
+display: flex;
+
+    }
+    input[type="radio"]{
+        color: red;;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tv Show Finder</title>
+</head>
+<body>
+    <h1>Tv Show Finder</h1>
+    <form id="mood-selector">
+        <fieldset>
+<label class="moods">Mood #1</label><br>
+<div id="mood-feelings">
+ <input  id="happy" type="radio" name="mood1" value="happy"><label for="happy">Happy</label><br>
+  <input id="sad" type="radio" name="mood1" value="sad"> <label for="sad">Sad</label><br>
+  <input id="loving" type="radio" name="mood1" value="loving"><label for="loving">Loving</label> 
+</fieldset>
+</div>
+<fieldset>
+  <label class="moods">Mood #2 </label><br>
+  <div id="mood-feelings">
+  <input  id="exciting" type="radio" name="mood2"> <label for="exciting">Exciting</label><br>
+  <input  id="gruesome" type="radio" name="mood2"><label for="gruesome"> Gruesome</label> <br>
+  <input  id="heartwarming" type="radio" name="mood2"><label for="heartwarming"> Heartwarming</label> 
+  <input  id="comedic" type="radio" name="mood2"><label for="comedic"> Comedic</label> 
+  
+</div>
+</fieldset>
+<input id="submit-disabled" type="submit" value="submit" disable >
+<div id="results-box">
+
+<h2 for="results">Your results are:</h2> <a><output id="results"><ol id="numList"></ol></a>
+    
+   
+
+   </div> 
+</form>
+</body>
+<script>
+    // Tv show list arrays //
+    const tvShowHappyandExciting=["New Girl", " Parks and Recreation", " Breaking Bad", " Stranger Things", " Orange is the New Black"];
+    const tvShowHappyandGruesome=["Invincible"," The boys"," Stranger Things", " Squid Game", "Narcos"];
+    const tvShowHappyandHeartwarming=["Friends"," Fresh Prince of Bell Air", " Ted Lasso", " Gilmore Girls"," Bobs Burgers"," Superstore"];
+    const tvShowHappyandComedic=["Family Guy"," Atlanta"," Brooklyn Nine-Nine"," Key and Peele"," Only Murders in the Bulding"," Friends"];
+    const tvShowSadandExciting=["All of Us Are Dead"," Alice in Borderland"," Maid"," When They See Us"," This is Us"," Bojack Horseman"," Grey's Anatomy"," The Handmaid's Tale"," Money Heist"," Squid Game", " Chernobyl"," The Wire"," The Walking Dead"];
+    const tvShowSadandGruesome=[""];
+    const tvShowSadandComedic=[""];
+    const tvShowSadandHeartwarming=[""];
+    const tvShowLovingandExciting=[""];
+    const tvShowLovingandGruesome=[""];
+    const tvShowLovingandHeartwarming=[""];
+    const tvShowsLovingandComedic=[" "," "]
+    // Description Arrays//
+    const happyAndExcitingDescrip=[];
+    const happyAndGruesomeDescrip=[];
+    const happyAndHeartwarmingDescript=[];
+    const happyAndComedicDescript=[];
+    const sadAndGruesomeDescrip=[];
+    const sadAndHearwarmingDescrip=[];
+    const sadAndComedicDescrip=[];
+    const sadAndExcitingDescription=["description1","description2","des3","des4","des5","des6","des7","des8","des9","des10","des11","des12","des13"]
+    const lovingAndExcitingDescrip=[];
+    const lovingAndGruesomeDescript=[];
+    const lovingAndHeartwarmingDescript=[];
+    const lovingAndCometicDescrip=[];
+    // HTML to JS//
+    const radHappy = document.getElementById("happy");
+    const radExciting = document.getElementById("exciting");
+    const radSad = document.getElementById("sad");
+    const radLoving = document.getElementById("loving");
+    const radGruesome = document.getElementById("gruesome")
+    const radHeartwarming = document.getElementById("heartwarming")
+    const radComedic = document.getElementById("comedic");
+    const form = document.getElementById("mood-selector");
+    let numList = document.getElementById("numList");
+    let results = document.getElementById("results");
+    
+    
+
+ form.onsubmit= function(event){
+      event.preventDefault();
+    radBtns= document.querySelectorAll('input[type="radio"]');
+   radBtns.forEach(radio => {
+       radio.addEventListener("click", function(){
+document.getElementById("submit-disabled").disabled=false;
+       })
+   });
+ document.getElementById("submit-disabled").addEventListener('click', function(){
+        this.disabled=true;
+    });
+
+       
+        // display a numbered list of tv shows //
+        if(radSad.checked && radExciting.checked){
+            // Turn the list into seperate links //
+            for(let i = 0; i < tvShowSadandExciting.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowSadandExciting[i] + '</a>';
+    listItem.title = sadandexcitingDescription[i];
+    listItem.onclick = function() {
+      alert(this.title);
+    }
+    
+    numList.appendChild(listItem);
+            }
+            results.innerHTML=listItem;
+        }        
+        else if(radHappy.checked && radExciting.checked){
+            // Turn the list into seperate links //
+            for( let i = 0; i< tvShowHappyandExciting.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowHappyandExciting[i] + '</a>';
+    listItem.title = happyAndExcitingDescrip[i];
+    listItem.onclick = function() {
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+            }
+    results.innerHTML=listItem;
+        }
+        else if (radHappy.checked && radGruesome.checked){
+            
+            for(i = 0; i < tvShowHappyandGruesome.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowHappyandGruesome[i] + '</a>';
+    listItem.title = happyAndGruesomeDescrip[i];
+    listItem.onclick = function() {
+      alert(this.title);
+    }
+    
+    numList.appendChild(listItem);
+            };
+            
+                results.innerHTML = listItem;
+        }
+        else if (radHappy.checked && radHeartwarming.checked){
+            let listHTML ="<ol>";
+            for(i = 0; i < tvShowHappyandHeartwarming.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowHappyandHeartwarming[i] + '</a>';
+    listItem.title = happyAndHeartwarmingDescript[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+            };
+
+                results.innerHTML = listItem;
+        }
+        else if(radHappy.clicked && radComedic.clicked){
+            let listHTML ="<ol>";
+            for(i = 0; i < tvShowHappyandComedic.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowHappyandComedic[i] + '</a>';
+    listItem.title = happyAndComedicDescript[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+            };
+            
+                results.innerHTML = listItem;
+        }
+       
+        else if(radSad.checked && radGruesome.checked){
+            
+            for(i = 0; i < tvShowSadandGruesome.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowSadandGruesome[i] + '</a>';
+    listItem.title = sadAndGruesomeDescrip[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+                
+            };
+            
+                results.innerHTML = listItem;
+        }
+        else if(radSad.checked && radHeartwarming.checked){
+            
+            for(i = 0; i < tvShowSadandHeartwarming.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowSadandHeartwarming[i] + '</a>';
+    listItem.title = sadAndHearwarmingDescrip[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+                
+            };
+            
+                results.innerHTML = listHTML;
+        }
+        else if(radSad.checked && radComedic.checked){
+            
+            for(i = 0; i < tvShowSadandComedic.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowSadandComedic[i] + '</a>';
+    listItem.title = sadAndComedicDescrip[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+            };
+            
+                results.innerHTML = listHTML;
+        }
+        else if(radLoving.checked && radExciting.checked){
+            
+            for(i = 0; i < tvShowLovingandExciting.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowLovingandExciting[i] + '</a>';
+    listItem.title = lovingAndExcitingDescrip[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+                
+            }
+            results.innerHTML = listItem;
+        }
+        else if(radLoving.checked && radGruesome.checked){
+            
+            for(i = 0; i < tvShowLovingandGruesome.length; i++){
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowLovingandGruesome[i] + '</a>';
+    listItem.title = lovingAndGruesomeDescript[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+                
+            };
+            
+                results.innerHTML = listItem;
+        }
+        else if(radLoving.checked && radHeartwarming.checked){
+             
+            for(i = 0; i < tvShowLovingandHeartwarming.length; i++){
+               
+                let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowLovingandHeartwarming[i] + '</a>';
+    listItem.title = lovingAndHeartwarmingDescript[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+    
+            };
+           
+                results.innerHTML = listItem;
+                
+        }
+        else if(radLoving.checked && radComedic.checked){
+            
+            for(i = 0; i < tvShowsLovingandComedic.length; i++){
+              
+               let listItem = document.createElement('li');
+    listItem.innerHTML = '<a href="#">' + tvShowsLovingandComedic[i] + '</a>';
+    listItem.title = lovingAndCometicDescrip[i]; 
+    listItem.onclick= function(){
+      alert(this.title);
+    } 
+    numList.appendChild(listItem);
+            };
+            
+                results.innerHTML = listItem;
+                
+        }
+          
+    }
+    
+ 
+</script>
+</html>
